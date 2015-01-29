@@ -1,7 +1,7 @@
 // Config
-global_ttrssUrl = "/tt-rss/";
+global_ttrssUrl = "/reader";
 
-global_sharedcountkey = ""; // optional sharedcount.com api key (50k hits free)
+global_sharedcountkey = "b5ea4100eb2307395c0a8e4345bfe39c813de0a5"; // optional sharedcount.com api key (50k hits free) for social share counts on posts
 
 // Preferences
 pref_Feed = '-4'; // Default: all items

@@ -219,7 +219,7 @@ $(document).ready(function () {
         data.mode = 0;
         data.field = 2;
         var request = apiCall(data);
-		console.log($(this));
+
         request.done(function (response) {
             $('#entries').empty();
             var headlines = getHeadlines(0, limit);
@@ -566,7 +566,7 @@ function getHeadlines(since, optFeed_limit) {
             <a href='" + headline.link + "' \
             class='item-title item-title-link' target='_blank'>" + headline.title + "</a> \
             <span class='item-source-title'>&nbsp;-&nbsp;" + headline.feed_title + "</span> \
-            <div class='item-snippet'>" + (headline.excerpt || $(headline.content).text().substr(0, 100)) + "</div> \
+            <div class='item-snippet'>" + ((headline.excerpt && headline.excerpt != '&hellip;')? headline.excerpt : $(headline.content).text().substr(0, 100) + '&hellip;') + "</div> \
             </div> \
             <div class='entry-sub-header'>by " + headline.author + " on " + date.toLocaleString() + "</div> \
             </div> \
@@ -581,13 +581,14 @@ function getHeadlines(since, optFeed_limit) {
             <div class='entry-actions-primary'> \
             <i class='fa fa-square-o read-state link unselectable' title='Mark as read'>&nbsp;<a>Mark as read</a></i>  \
             <span class='link unselectable' title='Sent by mail'> \
-            <i class='fa fa-envelope-o' style='padding-left:5px'>&nbsp;<a class='link unselectable' href='mailto:?subject=" + encodeURIComponent(email_subject) + "&body=" + encodeURIComponent(email_body) + "'>E-Mail</a></i> \
+            <i class='fa fa-envelope-o' style='vertical-align:top;'></i> \
+            <a class='link unselectable' href='mailto:?subject=" + encodeURIComponent(email_subject) + "&body=" + encodeURIComponent(email_body) + "'>E-Mail</a> \
             </span> \
 			<div class='share_widget post-"+headline.id+"'>Share: \
             <a href='https://plus.google.com/share?url="+encodeURIComponent(headline.link)+"' target='_blank'><i class='fa fa-google-plus-square' style='color:#d34836;'></i></a><span class='share-count'><i></i><u></u><span id='gp-count'>--</span></span>  \
 			<a href='https://twitter.com/intent/tweet?text="+encodeURIComponent(headline.title+' '+headline.link).replace("'","%27")+"' target='_blank'><i class='fa fa-twitter' style='color:#4099FF;'></i></a></a><span class='share-count'><i></i><u></u><span id='tw-count'>--</span></span>  \
             </div> \
-			<wbr /> \
+            <wbr /> \
             </div> \
             </div> \
             </div> \
@@ -705,9 +706,9 @@ function getHeadlines(since, optFeed_limit) {
         $('.load-more-message').html('Load more items...');
         $('.entries-count').html('Showing ' + $('.entry-row').length + ' items');
         keepUnread.clean(global_ids);
-		
+
     });
-	return headlines
+
 }
 
 function getTopCategories() {
@@ -1255,24 +1256,26 @@ function getCategoriesForNewSubscribe() {
 
 }
 jQuery.sharedCount = function(url, fn) {
-     url = encodeURIComponent(url || location.href);
-     var arg = {
- 	    data: {
- 	    	url : url,
- 	    	apikey : global_sharedcountkey || ""
- 	    },
-         url: "//" + (location.protocol == "https:" ? "sharedcount.appspot" : "api.sharedcount") + ".com/",
-         cache: true,
-         dataType: "json"
-     };
-     if ('withCredentials' in new XMLHttpRequest) {
-         arg.success = fn;
-     }
-     else {
-         var cb = "sc_" + url.replace(/\W/g, '');
-         window[cb] = fn;
-         arg.jsonpCallback = cb;
-         arg.dataType += "p";
-     }
-     return jQuery.ajax(arg);
- };
+    url = encodeURIComponent(url || location.href);
+    var domain = "//free.sharedcount.com/"; /* SET DOMAIN */
+    var apikey = global_sharedcountkey || ""
+    var arg = {
+      data: {
+        url : url,
+        apikey : apikey
+      },
+        url: domain,
+        cache: true,
+        dataType: "json"
+    };
+    if ('withCredentials' in new XMLHttpRequest) {
+        arg.success = fn;
+    }
+    else {
+        var cb = "sc_" + url.replace(/\W/g, '');
+        window[cb] = fn;
+        arg.jsonpCallback = cb;
+        arg.dataType += "p";
+    }
+    return jQuery.ajax(arg);
+};
