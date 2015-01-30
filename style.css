@@ -399,14 +399,10 @@ a:visited,
 }
 
 .entry-actions .read-state {
-    padding: 0 8px 0 5px;
-    position: relative;
-    float: left;
-    vertical-align: top;
-    line-height: 15px;
+    padding: 2px 8px 0 5px;
     white-space: nowrap;
     width: 95px;
-text-align: right;
+	text-align: right;
 }
 
 .expanded .entry-top-bar .entry-next-icon,
@@ -1363,10 +1359,8 @@ margin-right: 4px;
 .share_widget {
 text-align:right;
 overflow:auto;
-font-size:12px;
 display: inline;
 float: right;
-padding-top:1px;
 }
 
 .share_widget a {
@@ -1388,7 +1382,7 @@ padding:0;
 display:inline;
 }
 .share_widget .fa{
-font-size:1.3em;	
+font-size:15px;	
 }
 
 .share-count {

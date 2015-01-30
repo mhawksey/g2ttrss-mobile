@@ -579,9 +579,9 @@ function getHeadlines(since, optFeed_limit) {
             <div class='entry-footer'> \
             <div class='entry-actions'> \
             <div class='entry-actions-primary'> \
-            <i class='fa fa-square-o read-state link unselectable' title='Mark as read'>&nbsp;<a>Mark as read</a></i>  \
+            <i class='fa fa-square-o read-state link unselectable' title='Mark as read'>&nbsp;<span style='font-family:Open Sans'>Mark as read</span></i>   \
             <span class='link unselectable' title='Sent by mail'> \
-            <i class='fa fa-envelope-o' style='vertical-align:top;'></i> \
+            <i class='fa fa-envelope-o'></i> \
             <a class='link unselectable' href='mailto:?subject=" + encodeURIComponent(email_subject) + "&body=" + encodeURIComponent(email_body) + "'>E-Mail</a> \
             </span> \
 			<div class='share_widget post-"+headline.id+"'>Share: \
